@@ -1,4 +1,8 @@
 from PIL import Image
+from PIL import ImageDraw
+from PIL import ImageFont
+from PIL import ImageFilter
+
 image = Image.open('../../data/imgs/nina.png')
 #image.show()
 
@@ -13,20 +17,17 @@ cropped = image.crop((80, 80, 200, 400))
 rotated = cropped.rotate(45)
 #rotated.show()
 
-from PIL import ImageDraw
  # Создаем белый квадрат
 img = Image.new('RGBA', (200, 200), 'white')    
 idraw = ImageDraw.Draw(img)
 idraw.rectangle((10, 10, 110, 100), fill='blue')
 #img.show()
 
-from PIL import ImageFont
 text = "Hello World!"
 font = ImageFont.truetype("arial.ttf", size=18)
 idraw.text((10, 10), text, font=font)
 #img.show()
 
-from PIL import ImageFilter
 # BLUR, SHARPEN, DETAIL, EDGE_ENHANCE, EMBOSS, SMOOTH, etc.
 blur = image.filter(ImageFilter.BLUR)
 #blur.show()
