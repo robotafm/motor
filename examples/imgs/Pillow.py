@@ -32,7 +32,9 @@ blur = image.filter(ImageFilter.BLUR)
 #blur.show()
 sharpen = image.filter(ImageFilter.SHARPEN)
 #sharpen.show()
-
+  
+  # See Modes:
+  #https://pillow.readthedocs.io/en/stable/handbook/concepts.html#concept-modes
 grayscale = image.convert('L')
 #grayscale.show()
 
@@ -44,4 +46,13 @@ width, height = image.size
 new_width  = 100
 new_height = int(new_width * height / width)
 resize = image.resize((new_width, new_height), Image.ANTIALIAS)
-resize.show()
+#resize.show()
+
+# Gif animation:
+images = []
+images.append(image)
+images.append(blur)
+images.append(sharpen)
+images.append(grayscale.convert('RGB')) #Mode RGB only!
+images[0].save('../../data/imgs/nina.gif',
+               save_all=True, append_images=images[1:], optimize=False, duration=500, loop=0)
