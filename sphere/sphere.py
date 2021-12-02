@@ -2,14 +2,21 @@ from tkinter import *
 from tkinter import ttk
 from tkinter.ttk import Frame, Button, Label, Style
  
+
+def clicked(led):
+    print(led)
+
+def onObjectClick(event):                  
+    cid = event.widget.find_closest(event.x,event.y)[0]
+    event.widget.itemconfigure(cid, fill="blue")
  
 class Example(Frame):
  
     def __init__(self):
         super().__init__()
         self.initUI()
- 
- 
+
+
     def initUI(self):
  
         self.master.title("Конфигуратор Led-Sphere")
@@ -27,6 +34,10 @@ class Example(Frame):
         canvas.create_arc(120, 50, 380, 450, outline='blue', start=90, extent=180, width=2)
         canvas.create_arc(120, 50, 380, 450, outline='red', start=270, extent=180, width=2)
         canvas.create_oval(50,50, 450, 450, outline='white', width=2)
+        for led in range(1, 65):
+            canvas.create_oval(247,46+led*6.2, 253, 52+led*6.2, fill='red', 
+                               activefill='lightgreen', tags=led)
+            canvas.tag_bind(led, '<ButtonPress-1>', onObjectClick) 
 
         canvas.grid(row=1, column=1, columnspan=3, rowspan=4, padx=5, sticky=E+W+S+N)
         
@@ -52,7 +63,6 @@ class Example(Frame):
  
         obtn = Button(self, text="Готово")
         obtn.grid(row=6, column=3)
- 
  
 def main():
  
